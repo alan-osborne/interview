@@ -27,19 +27,6 @@ const inventory = {
     }
 };
 
-//represents a sequence of added items, feel free to change this to test
-let basket = ["apple", "apple", "papaya", "papaya", "papaya", "garlic", "apple", "apple", "papaya", "garlic", "orange", "papaya", "garlic", "orange", "papaya", "orange", "orange"],
-    basketMap = {};
-
-const
-    TILL_HEADER = 'Item\t\tQty\t\tUnit Price\t\tAmount\n',
-    TILL_ITEM_OUTPUT_FORMAT = '%s\t\t%s\t\t%s\t\t\t%s\t%s',
-    TILL_TOTAL_OUTPUT_FORMAT = '\nTotal\t\t\t\t\t\t\t%s';
-
-basket.reduce((acc, val) => {
-    basketMap[val] = basketMap[val] ? ++basketMap[val] : 1;
-});
-
 let calcWithDiscount = function(item) {
     let amount = (parseInt(basketMap[item] / inventory[item].promotion.discountVolume) * inventory[item].promotion.discountAdjVolume) * inventory[item].unitPrice;
     amount += (basketMap[item] % inventory[item].promotion.discountVolume) * inventory[item].unitPrice;
@@ -57,8 +44,13 @@ let discountApplied = function (item) {
     return  (parseInt(basketMap[item] / inventory[item].promotion.discountVolume)) > 0;
 };
 
+//till slip formatting
+const
+    TILL_HEADER = 'Item\t\tQty\t\tUnit Price\t\tAmount\n',
+    TILL_ITEM_OUTPUT_FORMAT = '%s\t\t%s\t\t%s\t\t\t%s\t%s',
+    TILL_TOTAL_OUTPUT_FORMAT = '\nTotal\t\t\t\t\t\t\t%s';
 
-//
+//produce the till style output
 let outputBasket = function (basketMap){
     let total = 0;
     console.log(TILL_HEADER);
@@ -77,5 +69,13 @@ let outputBasket = function (basketMap){
     }
     console.log(TILL_TOTAL_OUTPUT_FORMAT, total.toFixed(2));
 };
+
+//represents a sequence of added items, feel free to change this to test
+let basket = ["apple", "apple", "papaya", "papaya", "papaya", "garlic", "apple", "apple", "papaya", "garlic", "orange", "papaya", "garlic", "orange", "papaya", "orange", "orange"],
+    basketMap = {};
+
+basket.reduce((acc, val) => {
+    basketMap[val] = basketMap[val] ? ++basketMap[val] : 1;
+});
 
 outputBasket(basketMap);
