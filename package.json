@@ -1,0 +1,13 @@
+{
+  "name": "solera-shopper",
+  "version": "1.0.0",
+  "description": "Interview question",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Alan Osborne",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
