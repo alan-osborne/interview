@@ -1,0 +1,1073 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ApexBackendAPI",
+        "description": "Backend service for Apex.",
+        "version": "v1.0"
+    },
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/api/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/deals/{dealId}": {
+            "get": {
+                "operationId": "GetDealById",
+                "summary": "Get deal by dealId",
+                "description": "Get a deal by a given dealId",
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "Deal ID to be searched",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An deal object",
+                        "schema": {
+                            "$ref": "#/definitions/Deal"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/404error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "UpdateDealById",
+                "summary": "Update a deal",
+                "description": "Update attribute for deal by dealId",
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "Id of the deal to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated deal attribute",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateDeal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A updated deal object",
+                        "schema": {
+                            "$ref": "#/definitions/Deal"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/404error"
+                        }
+                    }
+                }
+            }
+        },
+        "/deals": {
+            "post": {
+                "operationId": "CreateNewDeal",
+                "summary": "Create new deal record",
+                "description": "Creates a new deal record",
+                "parameters": [
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "created deal object that needs to be passed with request body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/createDeal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A newly created deal object",
+                        "schema": {
+                            "$ref": "#/definitions/Deal"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "GetDeals",
+                "summary": "Get list of all deals",
+                "description": "A list of deals",
+                "parameters": [
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of deal objects",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Deal"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            }
+        },
+        "/deals/{dealId}/scenarios": {
+            "get": {
+                "operationId": "GetScenariosForDealById",
+                "summary": "Get scenarios by dealId",
+                "description": "Get list of scenarios by a given dealId",
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "The dealId related to all the scenarios to be searched",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of scenarios",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Scenario"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            }
+        },
+        "/deals/{dealId}/attach": {
+            "post": {
+                "summary": "Create new attachment info data. Note that POST & a URI ending with /attach will go through a mediator, which will provide a link to an encrypted S3 upload location if 200 status or respond with the status code and body as well.",
+                "operationId": "attachFilestoADeal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "the deal identifier",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "attachments",
+                        "in": "body",
+                        "description": "The set of new attachments that will be attached, ref",
+                        "schema": {
+                            "$ref": "#/definitions/attachments"
+                        }
+                    },
+                    {
+                        "$ref": "#/parameters/xRequestId"
+                    },
+                    {
+                        "$ref": "#/parameters/Authorization"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "description": "The deal with so"
+                    },
+                    "400": {
+                        "description": "Input Invalid for the API request.",
+                        "schema": {
+                            "$ref": "#/definitions/errorObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Caller is not authenticated.",
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            },
+                            "WWW-Authenticate": {
+                                "type": "string",
+                                "description": "Please authenticate to continue."
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "The user does not have the requisite security to perform the API request.",
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error, something is wrong with the system, and serving this endpoint is not possible presently.",
+                        "schema": {
+                            "$ref": "#/definitions/errorObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "attachments"
+                ]
+            },
+            "put": {
+                "summary": "Update attachment info.",
+                "operationId": "updateAttachmentInfo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "dealId",
+                        "in": "path",
+                        "description": "the deal identifier",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "attachments",
+                        "in": "body",
+                        "description": "The deal definition",
+                        "schema": {
+                            "$ref": "#/definitions/attachments"
+                        }
+                    },
+                    {
+                        "$ref": "#/parameters/xRequestId"
+                    },
+                    {
+                        "$ref": "#/parameters/Authorization"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "description": "The deal with so"
+                    },
+                    "400": {
+                        "description": "Input Invalid for the API request.",
+                        "schema": {
+                            "$ref": "#/definitions/errorObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. Caller is not authenticated.",
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            },
+                            "WWW-Authenticate": {
+                                "type": "string",
+                                "description": "Please authenticate to continue."
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "The user does not have the requisite security to perform the API request.",
+                        "schema": {
+                            "$ref": "#/definitions/emptyObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error, something is wrong with the system, and serving this endpoint is not possible presently.",
+                        "schema": {
+                            "$ref": "#/definitions/errorObject"
+                        },
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The value as recieved, the correlationId."
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "attachments"
+                ]
+            }
+        },
+        "/scenarios": {
+            "get": {
+                "summary": "Get list of scenarios",
+                "description": "Get list of all scenarios",
+                "parameters": [
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of scenarios",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Scenario"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates a new scenario record",
+                "description": "Creates a new scenario record",
+                "consumes": ["multipart/form-data"],
+                "parameters": [
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "upfile",
+                        "type": "file",
+                        "description": "The file to upload."
+                    },
+                    {
+                        "in": "formData",
+                        "name": "name",
+                        "type": "string",
+                        "description": "Scenario name"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "description",
+                        "type": "string",
+                        "description": "Scenario description"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A newly created scenario",
+                        "schema": {
+                            "$ref": "#/definitions/Scenario"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            }
+        },
+        "/scenarios/{scenarioId}": {
+            "get": {
+                "summary": "Get scenario by scenario Id",
+                "description": "Get a scenario by a given scenarioId",
+                "parameters": [
+                    {
+                        "name": "scenarioId",
+                        "in": "path",
+                        "description": "Id of the scenario",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Scenario object",
+                        "schema": {
+                            "$ref": "#/definitions/Scenario"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            }
+        },
+        "/kpi/{scenarioId}": {
+            "get": {
+                "summary": "Get 4 KPIs for a given scenario Id",
+                "description": "Get 4 KPIs for a given scenario Id",
+                "parameters": [
+                    {
+                        "name": "scenarioId",
+                        "in": "path",
+                        "description": "Id of the scenario for which to lookup the 4 KPIs",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An object containing 4 KPIs",
+                        "schema": {
+                            "$ref": "#/definitions/Kpi"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    }
+                }
+            }
+        },
+        "/resultlines/{scenarioId}": {
+            "get": {
+                "summary": "Get resultlines for scenario",
+                "description": "Get all the resultlines for a given scenarioId",
+                "parameters": [
+                    {
+                        "name": "scenarioId",
+                        "in": "path",
+                        "description": "scenarioId related to result lines to be searched",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A result line object, each property being an array of month/value pairs",
+                        "schema": {
+                            "$ref": "#/definitions/ResultLine"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/404error"
+                        }
+                    }
+                }
+            }
+        },
+        "/cashflowreport/{scenarioId}": {
+            "get": {
+                "summary": "Get cashflowreport for a scenario",
+                "description": "Get a cashflowreport by a given scenarioId",
+                "parameters": [
+                    {
+                        "name": "scenarioId",
+                        "in": "path",
+                        "description": "scenario id",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "x-request-id",
+                        "in": "header",
+                        "description": "x request id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "Bearer token for authorization",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTML as a string from Argus services",
+                        "schema": {
+                            "$ref": "#/definitions/CashFlowReport"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server Error",
+                        "schema": {
+                            "$ref": "#/definitions/500error"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/404error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "parameters": {
+        "xRequestId": {
+          "in": "header",
+          "name": "X-Request-ID",
+          "type": "string",
+          "required": true
+        },
+        "Authorization": {
+          "in": "header",
+          "name": "Authorization",
+          "type": "string",
+          "required": true
+        }
+      },
+    "definitions": {
+        "attachments": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attachment"
+            },
+            "minItems": 0
+        },
+        "attachment": {
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "$ref": "#/definitions/nonEmptyString"
+                        },
+                        "name": {
+                            "$ref": "#/definitions/nonEmptyString"
+                        },
+                        "size": {
+                            "$ref": "#/definitions/positiveNumber"
+                        },
+                        "createdAt": {
+                            "$ref": "#/definitions/dateTime"
+                        },
+                        "fileType": {
+                            "$ref": "#/definitions/nonEmptyString"
+                        },
+                        "url": {
+                            "$ref": "#/definitions/nonEmptyString"
+                        },
+                        "status": {
+                            "type": "string",
+                            "enum": [
+                                "pending",
+                                "complete",
+                                "failed"
+                            ]
+                        },
+                        "tags": {
+                            "$ref": "#/definitions/tags"
+                        }
+                    }
+                },
+                {
+                    "$ref": "#/definitions/singleObject"
+                }
+            ],
+            "required": [
+                "id",
+                "name",
+                "size",
+                "createdAt",
+                "fileType",
+                "url",
+                "status",
+                "tags"
+            ]
+        },
+        "emptyObject": {
+            "type": "object"
+        },
+        "nonEmptyString": {
+            "type": "string",
+            "minimum": 1
+        },
+        "positiveNumber": {
+            "type": "number",
+            "minimum": 0
+        },
+        "dateTime": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "errorObject": {
+            "type": "object",
+            "properties": {
+              "xRequestId": {
+                "$ref": "#/definitions/nonEmptyString"
+              },
+              "code": {
+                "$ref": "#/definitions/positiveInteger"
+              },
+              "message": {
+                "$ref": "#/definitions/nonEmptyString"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ]
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/nonEmptyString"
+            }
+        },
+        "singleObject": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/definitions/nonEmptyString"
+              },
+              "name": {
+                "$ref": "#/definitions/nonEmptyString"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+        },
+        "positiveInteger": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "Deal": {
+            "type": "object",
+            "properties": {
+                "dealId": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "askingPrice": {
+                    "type": "number"
+                },
+                "closingDate": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "propertyType": {
+                    "type": "string"
+                },
+                "buildingAreaSqFeet": {
+                    "type": "number"
+                },
+                "assetClass": {
+                    "type": "string"
+                },
+                "stage": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "string"
+                }
+            }
+        },
+        "createDeal": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "askingPrice": {
+                    "type": "number"
+                },
+                "closingDate": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "propertyType": {
+                    "type": "string"
+                },
+                "buildingAreaSqFeet": {
+                    "type": "number"
+                },
+                "assetClass": {
+                    "type": "string"
+                },
+                "stage": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateDeal": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "Scenario": {
+            "type": "object",
+            "properties": {
+                "scenarioId": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "createdDate": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dealId": {
+                    "type": "number"
+                }
+            }
+        },
+        "createScenario": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "createdDate": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dealId": {
+                    "type": "number"
+                }
+            }
+        },
+        "Kpi": {
+            "type": "object",
+            "properties": {
+                "unleveragedPresentValue": {
+                    "type": "number"
+                },
+                "unleveragedIrr": {
+                    "type": "number"
+                },
+                "netOperatingIncome": {
+                    "type": "number"
+                },
+                "cashflowBeforeDebtService": {
+                    "type": "number"
+                }
+            }
+        },
+        "ResultLine": {
+            "type": "object",
+            "properties": {
+                "cashFlow": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MonthValuePair"
+                    }
+                },
+                "netOperatingIncome": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MonthValuePair"
+                    }
+                },
+                "totalLeasingAndCapitalCosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MonthValuePair"
+                    }
+                }
+            }
+        },
+        "CashFlowReport": {
+            "type": "object",
+            "properties": {
+                "cashflowReportHTML": {
+                    "type": "string"
+                }
+            }
+        },
+        "MonthValuePair": {
+            "type": "object",
+            "properties": {
+                "month": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "500error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "404error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
